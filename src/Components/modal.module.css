@@ -8,9 +8,13 @@
   
   .file_upld_btn {
     width: 100%;
+
+    /* width: 144px; */
+    height: 40px;
+    font-size: 15px;
     margin: 0;
     color: #fff;
-    background: #337ab7;
+    background: #2CA8FF;
     border: none;
     padding: 10px;
     border-radius: 4px;
@@ -18,11 +22,12 @@
     transition: all 0.2s ease;
     outline: none;
     text-transform: uppercase;
-    font-weight: 700;
+    /* font-weight: 700; */
   }
   
   .file_upld_btn:hover {
-    background: #2b92ec;
+    background: #2CA8FF;
+
     transition: all 0.2s ease;
     cursor: pointer;
   }
@@ -112,8 +117,20 @@
 
   .drpdwn{
     /* width: 208px; */
+    width: 100%;
   }
 
   .footer button{
     opacity: 1 !important;
+  }
+
+  .bottom_btn{
+    display: flex;
+    justify-content: center;
+  }
+
+  .bottom_btn button{
+    width: 144px;
+    height: 40px;
+    font-size: 15px;
   }

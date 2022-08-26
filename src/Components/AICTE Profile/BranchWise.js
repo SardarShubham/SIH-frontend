@@ -170,7 +170,10 @@ const BranchWise = () => {
 
           </Container>
 
-        <DarkFooter/>
+          <div style={{"position":"absolute", "width":"100%", "bottom":0}}>
+      <DarkFooter/>
+
+      </div>
 
     </div>
   );

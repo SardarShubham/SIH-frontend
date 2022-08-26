@@ -61,9 +61,10 @@ import { PieData } from "../dataset";
 import { baseurl } from "Components/baseUrl";
 import DarkFooter from "Components/Footers/DarkFooter";
 
-import stat_img1 from "../../assets/img/Building_icon1.png";
-import stat_img2 from "../../assets/img/Building_icon2.png";
-import stat_img3 from "../../assets/img/Women_icon1.png";
+import stat_img1 from "../../assets/img/glp1.png";
+import stat_img2 from "../../assets/img/glp2.png";
+import stat_img3 from "../../assets/img/glp3.png";
+
 // function valuetext(value: number) {
 //   return `${value}°C`;
 // }
@@ -421,7 +422,7 @@ function AICTE_Profile() {
                           >
                             {/* <i className="now-ui-icons users_single-02"></i> */}
                              
-                            {/* <img src={item.image}/> */}
+                            <img src={stat_img2}/>
                           </div>
                           <div class="ps-3">
                             <span className={styles.stat_value}>
@@ -450,7 +451,7 @@ function AICTE_Profile() {
                           >
                             {/* <i className="now-ui-icons users_single-02"></i> */}
                              
-                            {/* <img src={item.image}/> */}
+                            <img src={stat_img3}/>
                           </div>
                           <div class="ps-3">
                             <span className={styles.stat_value}>
@@ -480,7 +481,7 @@ function AICTE_Profile() {
                           >
                             {/* <i className="now-ui-icons users_single-02"></i> */}
                              
-                            {/* <img src={item.image}/> */}
+                            <img src={stat_img1}/>
                           </div>
                           <div class="ps-3">
                             <span className={styles.stat_value}>
@@ -553,7 +554,7 @@ function AICTE_Profile() {
             <Col md="3" className={styles.sticky__index}>
               <Card style={{"height":"637px"}}>
                 <CardBody>
-                  <h3>Graphs</h3>
+                  <h3>Filters</h3>
                   <div className={styles.drpwrapper}>
                     <span className={styles.filter_label}>Year</span>
                     {/* academic year filter */}
@@ -733,12 +734,14 @@ function AICTE_Profile() {
                               {
                                 label: "Placed",
                                 data: programWise.placedCount,
-                                backgroundColor: "#2CA8FF",
+                                // backgroundColor: "#2CA8FF",
+                                backgroundColor:"#456CA1",
                               },
                               {
                                 label: "Unplaced",
                                 data: programWise.unplacedCount,
-                                backgroundColor: "#FFB236",
+                                // backgroundColor: "#FFB236",
+                                backgroundColor: "#31C9C7"
                               },
                             ],
                           }}
@@ -755,12 +758,16 @@ function AICTE_Profile() {
                               {
                                 label: "Placed",
                                 data: instituteWise.placedCount,
-                                backgroundColor: "#2CA8FF",
+                                // backgroundColor: "#2CA8FF",
+                                backgroundColor:"#1D3557",
+
                               },
                               {
                                 label: "Unplaced",
                                 data: instituteWise.unplacedCount,
-                                backgroundColor: "#FFB236",
+                                // backgroundColor: "#FFB236",
+                                backgroundColor: "#24CBC8"
+
                               },
                             ],
                           }}
@@ -777,12 +784,16 @@ function AICTE_Profile() {
                               {
                                 label: "Male Placed",
                                 data: programGenderWise.maleplaced,
-                                backgroundColor: "#2CA8FF",
+                                // backgroundColor: "#2CA8FF",
+                                backgroundColor:"#1D3557",
+
                               },
                               {
                                 label: "Female Placed",
                                 data: programGenderWise.femaleplaced,
-                                backgroundColor: "#FFB236",
+                                // backgroundColor: "#FFB236",
+                                backgroundColor: "#24CBC8"
+
                               },
                             ],
                           }}

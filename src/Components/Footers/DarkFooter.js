@@ -12,7 +12,7 @@ function DarkFooter() {
           <ul>
             <li>
               <a
-                href="https://www.creative-tim.com?ref=nukr-dark-footer"
+                // href="https://www.creative-tim.com?ref=nukr-dark-footer"
                 target="_blank"
               >
                 Optimizers101
@@ -20,7 +20,7 @@ function DarkFooter() {
             </li>
             <li>
               <a
-                href="http://presentation.creative-tim.com?ref=nukr-dark-footer"
+                // href="http://presentation.creative-tim.com?ref=nukr-dark-footer"
                 target="_blank"
               >
                 About Us
@@ -28,7 +28,7 @@ function DarkFooter() {
             </li>
             <li>
               <a
-                href="http://blog.creative-tim.com?ref=nukr-dark-footer"
+                // href="http://blog.creative-tim.com?ref=nukr-dark-footer"
                 target="_blank"
               >
                 Blog
@@ -39,7 +39,7 @@ function DarkFooter() {
         <div className="copyright" id="copyright">
             © {new Date().getFullYear()}, Designed and Coded by{" "}
             <a
-              href="#"
+              // href="#"
               target="_blank"
             >
               Team Optimizers101

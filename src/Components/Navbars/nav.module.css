@@ -25,12 +25,16 @@
     text-transform: capitalize !important;
     cursor: pointer;
 }
+.navitems_wrapper{
+    margin:4px;
+}
 .navitems_wrapper li:hover{
     /* background-color:  */
     /* border-bottom: 2px solid blue; */
-    background-color: rgba(44,168,255,0.3);
+    /* background-color: rgba(44,168,255,0.3); */
+    background-color: #d3d3d3;
     border-radius: 20px;
-    margin: 6px;
+    /* margin: 6px; */
 }
 
 .slider_content{

@@ -17,13 +17,17 @@ const UploadCSV = () => {
         </div>
         <div>
           <div className={styles.fileupload}>
-            <button
-              className={styles.file_upld_btn}
+            {/* <button
+
+// btn btn-info image-btn
+className={`btn btn-info image-btn ${styles.file_upld_btn}`}
+              // className={styles.file_upld_btn}
+              color="info"
               type="file"
               onclick="$('.file-upload-input').trigger( 'click' )"
             >
               Add file
-            </button>
+            </button> */}
 
             <div className={styles.img_upload_wrapper}>
               <input
@@ -59,8 +63,8 @@ const UploadCSV = () => {
           </div>
         </div>
 
-        <div>
-          <Button className="btn btn-success image-btn" type="button">
+        <div className={styles.bottom_btn}>
+          <Button className="btn btn-info image-btn" type="button">
             Submit
           </Button>
 
@@ -70,7 +74,10 @@ const UploadCSV = () => {
         </CardBody>
       </Card>
       </Container>
+      <div style={{"position":"absolute", "width":"100%", "bottom":0}}>
       <DarkFooter/>
+
+      </div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 .profile_body{
     background-color: #f6f9ff;
-    padding: 70px 0 0 0;
+    padding: 100px 0 0 0;
 }
 
 .stat_card{
@@ -166,6 +166,25 @@ endColor: "#1b7a9f", */
     min-height: 550px; */
     height: 637px;
     overflow-y: scroll;
+}
+
+.table__header{
+    /* background-color: #f96332; */
+    /* color:#f6f9ff; */
+    font-size: 17px;
+    /* font-weight: 200 !important; */
+    /* background-color: #d3d3d3; */
+    color: #000000;
+}
+
+.send___row{
+    justify-content: center;
+}
+
+.send___row button{
+    width: 245px;
+    height: 50px;
+    font-size: 19px;
 }
 
 @media only screen and (max-width: 992px) {

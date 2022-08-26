@@ -68,7 +68,11 @@ import { autocompleteClasses } from "@mui/material/Autocomplete";
 // import {MaterialTable} from '@material-ui/core';
 import MaterialTable from "material-table";
 
-import { top100Films } from "./Autocomplete";
+import { top100Films } from "./Autocomplete"; 
+
+import stat_img1 from "../../assets/img/glp1.png";
+import stat_img2 from "../../assets/img/glp2.png";
+import stat_img3 from "../../assets/img/glp3.png";
 
 const Root = styled("div")(
   ({ theme }) => `
@@ -281,7 +285,7 @@ function CoorporateProfile() {
     }
 
     let obj_stat = {total_institutions, total_students, total_placed};
-    console.log(obj_stat);
+    // console.log(obj_stat);
     setstatCards(obj_stat);
 
     } catch (error) {
@@ -388,7 +392,7 @@ function CoorporateProfile() {
 
   useEffect(() => {
     getTableData();
-    setstatCards();
+    setStatCards();
     document.body.classList.add("profile-page");
     document.body.classList.add("sidebar-collapse");
     document.documentElement.classList.remove("nav-open");
@@ -403,7 +407,7 @@ function CoorporateProfile() {
   // to update graphs
   useEffect(() => {
     getTableData();
-    setstatCards();
+    setStatCards();
   }, [filters, sliderValue, value]);
 
   highcharts3d(Highcharts);
@@ -458,32 +462,42 @@ function CoorporateProfile() {
   const [iconPills, setIconPills] = React.useState("1");
 
   const columns = [
-    { field: "id", headerName: "Sr. No", width: 50 },
+  //   { field: "id", headerName: "Sr. No", width: 50,       headerClassName:styles.table__header,
+  // },
     {
       field: "name",
       headerName: "Name",
+      headerClassName:styles.table__header,
       description: "This column has a value getter and is not sortable.",
       sortable: false,
       width: 100,
       // valueGetter: (params: GridValueGetterParams) =>
       //   `${params.row.firstName || ""} ${params.row.lastName || ""}`,
     },
-    { field: "email", headerName: "Email ID", width: 230 },
-    { field: "branch", headerName: "Branch", width: 210 },
+    { field: "email", headerName: "Email ID", width: 230 ,       headerClassName:styles.table__header,
+  },
+    { field: "branch", headerName: "Branch", width: 210,       headerClassName:styles.table__header,
+  },
     {
       field: "year",
       headerName: "Graduation Year",
+      headerClassName:styles.table__header,
+
       // type: "number",
       width: 150,
     },
     {
       field: "cgpa",
       headerName: "CGPA",
+      headerClassName:styles.table__header,
+
       // width:100
     },
     {
       field: "skills",
       headerName: "Skills",
+      headerClassName:styles.table__header,
+
       // width:100
     },
   ];
@@ -514,7 +528,7 @@ function CoorporateProfile() {
                     >
                       {/* <i className="now-ui-icons users_single-02"></i> */}
                        
-                      {/* <img src={item.image}/> */}
+                      <img src={stat_img2}/>
                     </div>
                     <div class="ps-3">
                       <span className={styles.stat_value}>
@@ -543,7 +557,7 @@ function CoorporateProfile() {
                     >
                       {/* <i className="now-ui-icons users_single-02"></i> */}
                        
-                      {/* <img src={item.image}/> */}
+                      <img src={stat_img3}/>
                     </div>
                     <div class="ps-3">
                       <span className={styles.stat_value}>
@@ -573,7 +587,7 @@ function CoorporateProfile() {
                     >
                       {/* <i className="now-ui-icons users_single-02"></i> */}
                        
-                      {/* <img src={item.image}/> */}
+                      <img src={stat_img1}/>
                     </div>
                     <div class="ps-3">
                       <span className={styles.stat_value}>
@@ -703,6 +717,7 @@ function CoorporateProfile() {
                       <InputWrapper
                         ref={setAnchorEl}
                         className={focused ? "focused" : ""}
+                        style={{"width":"100%"}}
                       >
                         {value.map((option, index) => (
                           <StyledTag
@@ -769,11 +784,13 @@ function CoorporateProfile() {
     }}
 /> */}
 
+<div style={{"height":"370px"}}>
                     <DataGrid
+                    // autoHeight
                       rows={tableData}
                       columns={columns}
                       pageSize={5}
-                      rowsPerPageOptions={[5]}
+                      rowsPerPageOptions={[6]}
                       className={classes.datagrid}
                       checkboxSelection
                       // onSelectionModelChange={r=>console.log(r)}
@@ -781,7 +798,9 @@ function CoorporateProfile() {
                         handleStudentSelection(list)
                       }
                     />
-                    <Row className={classes.send___row}>
+
+</div>
+                    <Row className={styles.send___row}>
                       <Button onClick={() => sendMail()} color="info">
                         Send Email
                       </Button>
