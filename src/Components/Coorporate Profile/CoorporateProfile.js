@@ -1,15 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
 // reactstrap components
 import {
-
   Row,
   Col,
-
   Card,
   CardBody,
   CardHeader,
   NavItem,
-Button,
+  Button,
   TabContent,
   TabPane,
 } from "reactstrap";
@@ -40,10 +38,10 @@ import CoorporateHeader from "./CoorporateHeader";
 import { Dropdown, Selection } from "react-dropdown-now";
 import "react-dropdown-now/style.css";
 
-import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
+import Box from "@mui/material/Box";
+import Slider from "@mui/material/Slider";
 
-import classes from './corporate.module.css';
+import classes from "./corporate.module.css";
 
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 
@@ -58,59 +56,60 @@ import { PieData } from "../dataset";
 import { baseurl } from "Components/baseUrl";
 import DarkFooter from "Components/Footers/DarkFooter";
 
-
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import {
   useAutocomplete,
   AutocompleteGetTagProps,
-} from '@mui/base/AutocompleteUnstyled';
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
-import { styled } from '@mui/material/styles';
-import { autocompleteClasses } from '@mui/material/Autocomplete';
+} from "@mui/base/AutocompleteUnstyled";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
+import { styled } from "@mui/material/styles";
+import { autocompleteClasses } from "@mui/material/Autocomplete";
 // import {MaterialTable} from '@material-ui/core';
-import MaterialTable from 'material-table';
+import MaterialTable from "material-table";
 
 import { top100Films } from "./Autocomplete";
 
-const Root = styled('div')(
+const Root = styled("div")(
   ({ theme }) => `
   color: ${
-    theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.65)' : 'rgba(0,0,0,.85)'
+    theme.palette.mode === "dark" ? "rgba(255,255,255,0.65)" : "rgba(0,0,0,.85)"
   };
   font-size: 16px;
-`,
+`
 );
 
-const Label = styled('label')`
+const Label = styled("label")`
   padding: 0 0 4px;
   line-height: 1.5;
   display: block;
 `;
 
-const InputWrapper = styled('div')(
+const InputWrapper = styled("div")(
   ({ theme }) => `
   width: 300px;
-  border: 1px solid ${theme.palette.mode === 'dark' ? '#434343' : '#d9d9d9'};
-  background-color: ${theme.palette.mode === 'dark' ? '#141414' : '#fff'};
+  border: 1px solid ${theme.palette.mode === "dark" ? "#434343" : "#d9d9d9"};
+  background-color: ${theme.palette.mode === "dark" ? "#141414" : "#fff"};
   border-radius: 4px;
   padding: 1px;
   display: flex;
   flex-wrap: wrap;
 
   &:hover {
-    border-color: ${theme.palette.mode === 'dark' ? '#177ddc' : '#40a9ff'};
+    border-color: ${theme.palette.mode === "dark" ? "#177ddc" : "#40a9ff"};
   }
 
   &.focused {
-    border-color: ${theme.palette.mode === 'dark' ? '#177ddc' : '#40a9ff'};
+    border-color: ${theme.palette.mode === "dark" ? "#177ddc" : "#40a9ff"};
     box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
   }
 
   & input {
-    background-color: ${theme.palette.mode === 'dark' ? '#141414' : '#fff'};
+    background-color: ${theme.palette.mode === "dark" ? "#141414" : "#fff"};
     color: ${
-      theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.65)' : 'rgba(0,0,0,.85)'
+      theme.palette.mode === "dark"
+        ? "rgba(255,255,255,0.65)"
+        : "rgba(0,0,0,.85)"
     };
     height: 30px;
     box-sizing: border-box;
@@ -122,7 +121,7 @@ const InputWrapper = styled('div')(
     margin: 0;
     outline: 0;
   }
-`,
+`
 );
 
 function Tag(props) {
@@ -130,7 +129,11 @@ function Tag(props) {
   return (
     <div {...other}>
       <span>{label}</span>
-      <CloseIcon onClick={onDelete}  className={styles.cls_icon} style={{"fontSize":"22px"}}/>
+      <CloseIcon
+        onClick={onDelete}
+        className={styles.cls_icon}
+        style={{ fontSize: "22px" }}
+      />
     </div>
   );
 }
@@ -148,9 +151,9 @@ const StyledTag = styled(Tag)(
   margin: 2px;
   line-height: 22px;
   background-color: ${
-    theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.08)' : '#fafafa'
+    theme.palette.mode === "dark" ? "rgba(255,255,255,0.08)" : "#fafafa"
   };
-  border: 1px solid ${theme.palette.mode === 'dark' ? '#303030' : '#e8e8e8'};
+  border: 1px solid ${theme.palette.mode === "dark" ? "#303030" : "#e8e8e8"};
   border-radius: 2px;
   box-sizing: content-box;
   padding: 0 4px 0 10px;
@@ -158,8 +161,8 @@ const StyledTag = styled(Tag)(
   overflow: hidden;
 
   &:focus {
-    border-color: ${theme.palette.mode === 'dark' ? '#177ddc' : '#40a9ff'};
-    background-color: ${theme.palette.mode === 'dark' ? '#003b57' : '#e6f7ff'};
+    border-color: ${theme.palette.mode === "dark" ? "#177ddc" : "#40a9ff"};
+    background-color: ${theme.palette.mode === "dark" ? "#003b57" : "#e6f7ff"};
   }
 
   & span {
@@ -173,17 +176,17 @@ const StyledTag = styled(Tag)(
     cursor: pointer;
     padding: 4px;
   }
-`,
+`
 );
 
-const Listbox = styled('ul')(
+const Listbox = styled("ul")(
   ({ theme }) => `
   width: 300px;
   margin: 2px 0 0;
   padding: 0;
   position: absolute;
   list-style: none;
-  background-color: ${theme.palette.mode === 'dark' ? '#141414' : '#fff'};
+  background-color: ${theme.palette.mode === "dark" ? "#141414" : "#fff"};
   overflow: auto;
   max-height: 250px;
   border-radius: 4px;
@@ -204,7 +207,7 @@ const Listbox = styled('ul')(
   }
 
   & li[aria-selected='true'] {
-    background-color: ${theme.palette.mode === 'dark' ? '#2b2b2b' : '#fafafa'};
+    background-color: ${theme.palette.mode === "dark" ? "#2b2b2b" : "#fafafa"};
     font-weight: 600;
 
     & svg {
@@ -213,34 +216,24 @@ const Listbox = styled('ul')(
   }
 
   & li.${autocompleteClasses.focused} {
-    background-color: ${theme.palette.mode === 'dark' ? '#003b57' : '#e6f7ff'};
+    background-color: ${theme.palette.mode === "dark" ? "#003b57" : "#e6f7ff"};
     cursor: pointer;
 
     & svg {
       color: currentColor;
     }
   }
-`,
+`
 );
-
 
 function CoorporateProfile() {
 
-
-
-  const [filterModal, setfilterModal] = useState(false);
-  const [programWise, setProgramWise] = useState({});
-  const [instituteWise, setInstituteWise] = useState({});
-  const [programGenderWise, setProgramGenderWise] = useState({});
-  const [mapRegionData, setmapregionData] = useState({});
-  const [yearWise, setYearWise] = useState({});
-  const [sliderValue, setSliderVal] = React.useState([5,10]);
+  const [sliderValue, setSliderVal] = React.useState([5, 10]);
   const [emailList, setemailList] = useState([]);
+  const [statCards, setstatCards] = useState();
 
 
-  const [tableData, settableData] = useState([
-  ]);
-
+  const [tableData, settableData] = useState([]);
 
   const [filters, setfilters] = useState({
     year: "2022",
@@ -248,25 +241,69 @@ function CoorporateProfile() {
   });
 
 
+  const setStatCards = async() => {
+       
+    let data = {
+      year: filters.year === "All" ? "" : parseInt(filters.year),
+      // gender: filters.gender === "Female" ? "Female" : "",
+      gender:"",
+      state: "",
+      institutionType: "",
+      minority: "",
+    };
+    try {
+      const p = await axios.post(
+        "https://optimizers-sih-backend.herokuapp.com/api/v1/chart/programWisePlacement",
+        data
+      );    
+    
+      let statplaced = 0;
+      let statunplaced = 0;
+      p.data.map((obj) => {
+        statplaced += obj.placedStudentCount;
+        statunplaced += obj.unplacedStudentCount;
+      });
 
+      let total_institutions = 
+      {
+        label: "Unplaced",
+        value: statunplaced,
+      }
+    
+    let total_students = {
+      label: "Total Students",
+      value: statplaced+statunplaced
+    }
+
+    let total_placed = {
+      label: "Placed",
+      value: statplaced
+    }
+
+    let obj_stat = {total_institutions, total_students, total_placed};
+    console.log(obj_stat);
+    setstatCards(obj_stat);
+
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
 
   const getTableData = async () => {
-
     let skill_temp = [];
-    value.map(obj=>{
-      return(
-        skill_temp.push(obj.title)
-      );
-    })
+    value.map((obj) => {
+      return skill_temp.push(obj.title);
+    });
     let data = {
-      "year": filters.year === "All" ? "" : parseInt(filters.year),
-      "branch":filters.branch === "All" ? "" : filters.branch,
-      "minCGPA" : sliderValue[0],
-      "maxCGPA" : sliderValue[1],
-      "skills": skill_temp
+      year: filters.year === "All" ? "" : parseInt(filters.year),
+      branch: filters.branch === "All" ? "" : filters.branch,
+      minCGPA: sliderValue[0],
+      maxCGPA: sliderValue[1],
+      skills: skill_temp,
     };
 
-    try{
+    try {
       const res = await axios.post(
         "https://optimizers-sih-backend.herokuapp.com/api/v1/student/getAllStudentsByYearAndBranch",
         data
@@ -274,9 +311,9 @@ function CoorporateProfile() {
 
       let temp2 = [];
       let temp;
-      res.data.map((obj,id) => {
+      res.data.map((obj, id) => {
         temp = {};
-        temp.id = id+1;
+        temp.id = id + 1;
         temp.name = obj.name;
         temp.email = obj.emailID;
         temp.year = obj.year;
@@ -284,51 +321,45 @@ function CoorporateProfile() {
         temp.skills = obj.skills;
         temp.cgpa = obj.cgpa;
         temp2.push(temp);
-
-      })
+      });
 
       // console.log(temp2);
       settableData(temp2);
-    }
-    catch(err){
+    } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   const handleStudentSelection = (indices) => {
     let emails = [];
-    indices.map(ind => {
-      return(
-        emails.push(tableData[ind-1].email)
-      );
-    })
+    indices.map((ind) => {
+      return emails.push(tableData[ind - 1].email);
+    });
 
     console.log(emails);
     setemailList(emails);
-
-  }
+  };
 
   const sendMail = async () => {
     let data = {
-      "from":"sardarshubham17@gmail.com",
-      "to":emailList,
-      "subject":"Hello , Congratulations for getting shortlisted at Microsoft!",
-      "text":"Hi Sudarshan,You are shortlisted for interview rounds at FamPay.Thank you for your interest in joining our mission at FamPay. We were super impressed by your work and background and would like to share an assignment for the next steps for your application. Please let us know by when you want us to schedule interview Looking forward to hearing back from you! Best, HR",
+      from: "sardarshubham17@gmail.com",
+      to: emailList,
+      subject: "Hello , Congratulations for getting shortlisted at Microsoft!",
+      text: "Hi Sudarshan,You are shortlisted for interview rounds at FamPay.Thank you for your interest in joining our mission at FamPay. We were super impressed by your work and background and would like to share an assignment for the next steps for your application. Please let us know by when you want us to schedule interview Looking forward to hearing back from you! Best, HR",
     };
 
-    try{
+    try {
       const res = await axios.post(
         "https://optimizers-sih-backend.herokuapp.com/api/v1/email/sendEmail",
         data
-      )
+      );
 
       console.log(res);
       alert("Email Sent Successfully");
-    }
-    catch(err){
+    } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   const handleSliderChange = (event, newValue) => {
     setSliderVal(newValue);
@@ -348,7 +379,7 @@ function CoorporateProfile() {
     focused,
     setAnchorEl,
   } = useAutocomplete({
-    id: 'customized-hook-demo',
+    id: "customized-hook-demo",
     defaultValue: [top100Films[1]],
     multiple: true,
     options: top100Films,
@@ -357,6 +388,7 @@ function CoorporateProfile() {
 
   useEffect(() => {
     getTableData();
+    setstatCards();
     document.body.classList.add("profile-page");
     document.body.classList.add("sidebar-collapse");
     document.documentElement.classList.remove("nav-open");
@@ -371,6 +403,7 @@ function CoorporateProfile() {
   // to update graphs
   useEffect(() => {
     getTableData();
+    setstatCards();
   }, [filters, sliderValue, value]);
 
   highcharts3d(Highcharts);
@@ -425,51 +458,34 @@ function CoorporateProfile() {
   const [iconPills, setIconPills] = React.useState("1");
 
   const columns = [
-    { field: "id", headerName: "Sr. No"
-    , width: 50
-  },
+    { field: "id", headerName: "Sr. No", width: 50 },
     {
       field: "name",
       headerName: "Name",
       description: "This column has a value getter and is not sortable.",
       sortable: false,
-      width: 100
+      width: 100,
       // valueGetter: (params: GridValueGetterParams) =>
       //   `${params.row.firstName || ""} ${params.row.lastName || ""}`,
     },
-    { field: "email", headerName: "Email ID",
-     width: 230
-     },
-    { field: "branch", headerName: "Branch", 
-    width: 210
-  },
+    { field: "email", headerName: "Email ID", width: 230 },
+    { field: "branch", headerName: "Branch", width: 210 },
     {
       field: "year",
       headerName: "Graduation Year",
       // type: "number",
       width: 150,
     },
-    {field: "cgpa",
-    headerName: "CGPA",
-    // width:100
-  },
-  {field: "skills",
-  headerName: "Skills",
-  // width:100
-}
-
-  ];
-
-  const rows = [
-    { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-    { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-    { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-    { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-    { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-    { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-    { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-    { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-    { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
+    {
+      field: "cgpa",
+      headerName: "CGPA",
+      // width:100
+    },
+    {
+      field: "skills",
+      headerName: "Skills",
+      // width:100
+    },
   ];
 
   return (
@@ -479,45 +495,105 @@ function CoorporateProfile() {
       <div className={`section ${styles.profile_body}`}>
         <div className={`container ${styles.graph_container}`}>
           <Row>
-            {
-              // statistics cards
-              statArray.map((item) => {
-                return (
-                  <div class="col-xxl-3 col-md-4">
-                    <Card className={styles.stat_card}>
-                      <CardBody>
-                        <span className={styles.stat_header}>
-                          {item.label} <span>| {filters.year}</span>
-                        </span>
-                        <div
-                          className="d-flex align-items-center"
-                          style={{ height: "75px" }}
-                        >
-                          <div
-                            className=" btn-icon btn-round btn btn-github "
-                            style={{ background: "#f6f6fe" }}
-                          >
-                            <i className="now-ui-icons users_single-02"></i>
-                          </div>
-                          <div class="ps-3">
-                            <span className={styles.stat_value}>
-                              {item.value} 
-                            </span>
-                          </div>
-                        </div>
-                      </CardBody>
-                    </Card>
+            
+              
+           
+              <div class="col-xxl-3 col-md-4">
+              <Card className={styles.stat_card}>
+                <CardBody>
+                  <span className={styles.stat_header}>
+                  {statCards && statCards.total_students.label}
+                   <span>| 2022</span></span>
+                  <div
+                    className="d-flex align-items-center"
+                    style={{ height: "75px" }}
+                  >
+                    <div
+                      className=" btn-icon btn-round btn btn-github "
+                      style={{ background: "#f6f6fe" }}
+                    >
+                      {/* <i className="now-ui-icons users_single-02"></i> */}
+                       
+                      {/* <img src={item.image}/> */}
+                    </div>
+                    <div class="ps-3">
+                      <span className={styles.stat_value}>
+                      {statCards && statCards.total_students.value}
+                      </span>
+                    </div>
                   </div>
-                );
-              })
-            }
+                </CardBody>
+              </Card>
+            </div>
+
+
+            <div class="col-xxl-3 col-md-4">
+              <Card className={styles.stat_card}>
+                <CardBody>
+                  <span className={styles.stat_header}>
+                  {statCards && statCards.total_placed.label}
+                   <span>| 2022</span></span>
+                  <div
+                    className="d-flex align-items-center"
+                    style={{ height: "75px" }}
+                  >
+                    <div
+                      className=" btn-icon btn-round btn btn-github "
+                      style={{ background: "#f6f6fe" }}
+                    >
+                      {/* <i className="now-ui-icons users_single-02"></i> */}
+                       
+                      {/* <img src={item.image}/> */}
+                    </div>
+                    <div class="ps-3">
+                      <span className={styles.stat_value}>
+                      {statCards && statCards.total_placed.value}
+                      </span>
+                    </div>
+                  </div>
+                </CardBody>
+              </Card>
+            </div>
+
+
+            <div class="col-xxl-3 col-md-4">
+              <Card className={styles.stat_card}>
+                <CardBody>
+                  <span className={styles.stat_header}>
+                    {statCards && statCards.total_institutions && statCards.total_institutions.label}
+                    {/* {statCards.total_institutions} */}
+                   <span>| 2022</span></span>
+                  <div
+                    className="d-flex align-items-center"
+                    style={{ height: "75px" }}
+                  >
+                    <div
+                      className=" btn-icon btn-round btn btn-github "
+                      style={{ background: "#f6f6fe" }}
+                    >
+                      {/* <i className="now-ui-icons users_single-02"></i> */}
+                       
+                      {/* <img src={item.image}/> */}
+                    </div>
+                    <div class="ps-3">
+                      <span className={styles.stat_value}>
+                      {statCards && statCards.total_institutions.value}
+                      </span>
+                    </div>
+                  </div>
+                </CardBody>
+              </Card>
+            </div>
+
+                
+            
           </Row>
         </div>
 
         <div className={`container ${styles.graph_container}`}>
           <Row>
-            <Col md="3" className={styles.sticky__index} >
-              <Card style={{"height":"500px"}}>
+            <Col md="3" className={styles.sticky__index}>
+              <Card style={{ height: "500px" }}>
                 <CardBody>
                   <h3>Filters</h3>
                   <div className={styles.drpwrapper}>
@@ -544,7 +620,6 @@ function CoorporateProfile() {
                     <Dropdown
                       placeholder="Select Branch"
                       className="my-className"
-
                       options={[
                         "All",
                         "Computer Engineering",
@@ -562,86 +637,94 @@ function CoorporateProfile() {
                   </div>
 
                   <span className={styles.filter_label}>CGPA</span>
-                      <Box sx={{ width: 250 }} >
-                      <Slider
+                  <Box sx={{ width: 250 }}>
+                    <Slider
                       // getAriaLabel={() => 'Temperature range'}
                       min={0}
                       max={10}
-                      marks = {[{
-                        value: 1,
-                        label: '1',
-                      },
-                      {
-                        value: 2,
-                        label: '2',
-                      },
-                      {
-                        value: 3,
-                        label: '3',
-                      },
-                      {
-                        value: 4,
-                        label: '4',
-                      },
-                      {
-                        value: 5,
-                        label: '5',
-                      },
-                      {
-                        value: 6,
-                        label: '6',
-                      },
-                      {
-                        value: 7,
-                        label: '7',
-                      },
-                      {
-                        value: 8,
-                        label: '8',
-                      },
-                      {
-                        value: 9,
-                        label: '9',
-                      },
-                      {
-                        value: 10,
-                        label: '10',
-                      }]}
+                      marks={[
+                        {
+                          value: 1,
+                          label: "1",
+                        },
+                        {
+                          value: 2,
+                          label: "2",
+                        },
+                        {
+                          value: 3,
+                          label: "3",
+                        },
+                        {
+                          value: 4,
+                          label: "4",
+                        },
+                        {
+                          value: 5,
+                          label: "5",
+                        },
+                        {
+                          value: 6,
+                          label: "6",
+                        },
+                        {
+                          value: 7,
+                          label: "7",
+                        },
+                        {
+                          value: 8,
+                          label: "8",
+                        },
+                        {
+                          value: 9,
+                          label: "9",
+                        },
+                        {
+                          value: 10,
+                          label: "10",
+                        },
+                      ]}
                       value={sliderValue}
                       onChange={handleSliderChange}
                       valueLabelDisplay="auto"
                       // getAriaValueText={valuetext}
-                      />
-                      </Box>
+                    />
+                  </Box>
 
+                  <Root>
+                    <div {...getRootProps()}>
+                      <Label
+                        {...getInputLabelProps()}
+                        className={styles.filter_label}
+                      >
+                        Skills
+                      </Label>
 
-                    
-                      <Root>
-      <div {...getRootProps()}>
-        <Label {...getInputLabelProps()} className={styles.filter_label}>Skills</Label>
-       
-        <InputWrapper ref={setAnchorEl} className={focused ? 'focused' : ''}>
-          {value.map((option, index) => (
-            <StyledTag label={option.title} {...getTagProps({ index })} />
-          ))}
-          <input {...getInputProps()} />
-        </InputWrapper>
-      </div>
+                      <InputWrapper
+                        ref={setAnchorEl}
+                        className={focused ? "focused" : ""}
+                      >
+                        {value.map((option, index) => (
+                          <StyledTag
+                            label={option.title}
+                            {...getTagProps({ index })}
+                          />
+                        ))}
+                        <input {...getInputProps()} />
+                      </InputWrapper>
+                    </div>
 
-
-      {groupedOptions.length > 0 ? (
-        <Listbox {...getListboxProps()}>
-          {groupedOptions.map((option, index) => (
-            <li {...getOptionProps({ option, index })}>
-              <span>{option.title}</span> 
-              <CheckIcon fontSize="small" />
-            </li>
-          ))}
-        </Listbox>
-      ) : null}
-    </Root>
-
-
+                    {groupedOptions.length > 0 ? (
+                      <Listbox {...getListboxProps()}>
+                        {groupedOptions.map((option, index) => (
+                          <li {...getOptionProps({ option, index })}>
+                            <span>{option.title}</span>
+                            <CheckIcon fontSize="small" />
+                          </li>
+                        ))}
+                      </Listbox>
+                    ) : null}
+                  </Root>
                 </CardBody>
               </Card>
             </Col>
@@ -651,8 +734,7 @@ function CoorporateProfile() {
                 <CardHeader></CardHeader>
                 <CardBody>
                   <div style={{ height: 400, width: "100%" }}>
-
-                  {/* <MaterialTable
+                    {/* <MaterialTable
                     title="Actions On Selected Rows Preview"
                     columns={[
                       { title: 'Name', field: 'name' },
@@ -679,14 +761,13 @@ function CoorporateProfile() {
                       }
                     ]}
                   /> */}
-{/* 
+                    {/* 
 <MaterialTable
     // other props
     options={{
       search: true
     }}
 /> */}
-
 
                     <DataGrid
                       rows={tableData}
@@ -695,14 +776,15 @@ function CoorporateProfile() {
                       rowsPerPageOptions={[5]}
                       className={classes.datagrid}
                       checkboxSelection
-
                       // onSelectionModelChange={r=>console.log(r)}
-                      onSelectionModelChange={(list)=> handleStudentSelection(list)}
+                      onSelectionModelChange={(list) =>
+                        handleStudentSelection(list)
+                      }
                     />
                     <Row className={classes.send___row}>
-                      <Button 
-                      onClick={()=>sendMail()}
-                      color="info">Send Email</Button>
+                      <Button onClick={() => sendMail()} color="info">
+                        Send Email
+                      </Button>
                     </Row>
                   </div>
                 </CardBody>

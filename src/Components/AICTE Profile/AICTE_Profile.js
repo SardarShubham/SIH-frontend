@@ -76,6 +76,7 @@ function AICTE_Profile() {
   const [programGenderWise, setProgramGenderWise] = useState({});
   const [mapRegionData, setmapregionData] = useState({});
   const [yearWise, setYearWise] = useState({});
+  const [statCards, setstatCards] = useState();
   const [filters, setfilters] = useState({
     year: "All",
     program: "All",
@@ -85,14 +86,66 @@ function AICTE_Profile() {
     minority: "All",
   });
 
-  const dataMapper = (data) => {
-    const ids = [];
-    const placedCount = [];
-    const unplacedCount = [];
 
+  const setStatCards = async() => {
+       
+    let data = {
+      year: filters.year === "All" ? "" : parseInt(filters.year),
+      // gender: filters.gender === "Female" ? "Female" : "",
+      gender:"",
+      state: filters.state === "All" ? "" : filters.state,
+      institutionType: filters.instituteType === "All" ? "" : filters.instituteType,
+      minority: filters.minority === "Yes" ? "Yes" : "",
+    };
+    try {
+      const p = await axios.post(
+        "https://optimizers-sih-backend.herokuapp.com/api/v1/chart/programWisePlacement",
+        data
+      );    
+    
+      let statplaced = 0;
+      let statunplaced = 0;
+      p.data.map((obj) => {
+        statplaced += obj.placedStudentCount;
+        statunplaced += obj.unplacedStudentCount;
+      });
+
+      let total_institutions = 
+      {
+        label: "Unplaced",
+        value: statunplaced,
+      }
+    
+    let total_students = {
+      label: "Total Students",
+      value: statplaced+statunplaced
+    }
+
+    let total_placed = {
+      label: "Placed",
+      value: statplaced
+    }
+
+    let obj_stat = {total_institutions, total_students, total_placed};
+    console.log(obj_stat);
+    setstatCards(obj_stat);
+
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
+  const dataMapper = (data) => {
+
+    
+    let ids = [];
+    let placedCount = [];
+    let unplacedCount = [];
+ 
     data.map((obj) => {
       ids.push(obj._id);
-      placedCount.push(obj.placedStudentCount);
+      placedCount.push(obj.placedStudentCount); 
       unplacedCount.push(obj.unplacedStudentCount);
     });
     return { ids, placedCount, unplacedCount };
@@ -147,10 +200,12 @@ function AICTE_Profile() {
         "https://optimizers-sih-backend.herokuapp.com/api/v1/chart/programWisePlacement",
         data
       );
+      
       program.data.sort((a,b)=>{
         return (b.placedStudentCount - a.placedStudentCount);
       })
 
+      
       const response = dataMapper(program.data);
       // response.sort((a,b) => { 
       //   return a.
@@ -206,6 +261,7 @@ function AICTE_Profile() {
         femaleplaced.push(obj.femalePlacedStudentCount);
       });
       
+
       setProgramGenderWise({ ids, maleplaced, femaleplaced });
     } catch (err) {
       console.log(err);
@@ -242,12 +298,14 @@ function AICTE_Profile() {
     }
   };
 
+
   useEffect(() => {
     getprogramwiseplacement();
     getinstitutewisePlacement();
     getProgramGenderWise();
     getstatewisePlacement();
     getyearWisePlacement();
+    setStatCards();
     document.body.classList.add("profile-page");
     document.body.classList.add("sidebar-collapse");
     document.documentElement.classList.remove("nav-open");
@@ -266,6 +324,8 @@ function AICTE_Profile() {
     getProgramGenderWise();
     getstatewisePlacement();
     getyearWisePlacement();
+    setStatCards();
+
   }, [filters]);
 
   highcharts3d(Highcharts);
@@ -334,18 +394,23 @@ function AICTE_Profile() {
   return (
     <div className='wrapper'>
       <IndexNavbar/>
-      <AicteHeader />
+      {/* <AicteHeader /> */}
       <div className={`section ${styles.profile_body}`}>
         <div className={`container ${styles.graph_container}`}>
           <Row>
-            {
-              // statistics cards
-              statArray.map((item) => {
-                return (
+            
+              {/* // statistics cards
+              // statCards.map((item) => { */}
+              {/* //   return ( */}
+                 
+
+
                   <div class="col-xxl-3 col-md-4">
                     <Card className={styles.stat_card}>
                       <CardBody>
-                        <span className={styles.stat_header}>{item.label} <span>| 2022</span></span>
+                        <span className={styles.stat_header}>
+                        {statCards && statCards.total_students.label}
+                         <span>| 2022</span></span>
                         <div
                           className="d-flex align-items-center"
                           style={{ height: "75px" }}
@@ -356,20 +421,88 @@ function AICTE_Profile() {
                           >
                             {/* <i className="now-ui-icons users_single-02"></i> */}
                              
-                            <img src={item.image}/>
+                            {/* <img src={item.image}/> */}
                           </div>
                           <div class="ps-3">
                             <span className={styles.stat_value}>
-                              {item.value} 
+                            {statCards && statCards.total_students.value}
                             </span>
                           </div>
                         </div>
                       </CardBody>
                     </Card>
                   </div>
-                );
-              })
-            }
+
+
+                  <div class="col-xxl-3 col-md-4">
+                    <Card className={styles.stat_card}>
+                      <CardBody>
+                        <span className={styles.stat_header}>
+                        {statCards && statCards.total_placed.label}
+                         <span>| 2022</span></span>
+                        <div
+                          className="d-flex align-items-center"
+                          style={{ height: "75px" }}
+                        >
+                          <div
+                            className=" btn-icon btn-round btn btn-github "
+                            style={{ background: "#f6f6fe" }}
+                          >
+                            {/* <i className="now-ui-icons users_single-02"></i> */}
+                             
+                            {/* <img src={item.image}/> */}
+                          </div>
+                          <div class="ps-3">
+                            <span className={styles.stat_value}>
+                            {statCards && statCards.total_placed.value}
+                            </span>
+                          </div>
+                        </div>
+                      </CardBody>
+                    </Card>
+                  </div>
+
+
+                  <div class="col-xxl-3 col-md-4">
+                    <Card className={styles.stat_card}>
+                      <CardBody>
+                        <span className={styles.stat_header}>
+                          {statCards && statCards.total_institutions && statCards.total_institutions.label}
+                          {/* {statCards.total_institutions} */}
+                         <span>| 2022</span></span>
+                        <div
+                          className="d-flex align-items-center"
+                          style={{ height: "75px" }}
+                        >
+                          <div
+                            className=" btn-icon btn-round btn btn-github "
+                            style={{ background: "#f6f6fe" }}
+                          >
+                            {/* <i className="now-ui-icons users_single-02"></i> */}
+                             
+                            {/* <img src={item.image}/> */}
+                          </div>
+                          <div class="ps-3">
+                            <span className={styles.stat_value}>
+                            {statCards && statCards.total_institutions.value}
+                            </span>
+                          </div>
+                        </div>
+                      </CardBody>
+                    </Card>
+                  </div>
+
+
+
+
+
+
+
+
+                  
+              {/* //   );
+              // }) */}
+            
           </Row>
         </div>
 
@@ -739,16 +872,19 @@ function AICTE_Profile() {
                       name: "Unplaced",
                       data: yearWise.unplacedcount,
                       stack: 0,
+                      color:'rgba(255, 99, 132, 0.5)'
                     },
                     {
                       name: "Placed",
                       data: yearWise.placedcount,
                       stack: 1,
+                      color: 'rgba(54, 162, 235, 0.5)',
                     },
                     {
                       name: "Total",
                       data: yearWise.total,
                       stack: 2,
+                      color: 'rgba(255, 206, 86, 0.5)'
                     },
                   ],
                 }}
