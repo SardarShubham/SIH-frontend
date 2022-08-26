@@ -1,9 +1,10 @@
 
-.fileupload {
+.fileupload{
     background-color: #ffffff;
     width: 100%;
     margin: 0 auto;
-    padding: 20px;
+    height: 400px !important;
+    padding: 0 50px !important;
   }
   
   .file_upld_btn {
@@ -134,3 +135,4 @@
     height: 40px;
     font-size: 15px;
   }
+

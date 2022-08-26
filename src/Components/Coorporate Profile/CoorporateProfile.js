@@ -10,6 +10,9 @@ import {
   Button,
   TabContent,
   TabPane,
+  Modal,
+  ModalBody,
+  Input
 } from "reactstrap";
 import {
   Chart as ChartJS,
@@ -236,6 +239,9 @@ function CoorporateProfile() {
   const [emailList, setemailList] = useState([]);
   const [statCards, setstatCards] = useState();
 
+  const [modal1, setModal1] = useState(false);
+  const [smstext, setsmstext] = useState("");
+
 
   const [tableData, settableData] = useState([]);
 
@@ -364,6 +370,26 @@ function CoorporateProfile() {
       console.log(err);
     }
   };
+
+
+  const sendSMS = async()=>{
+    let data = {
+      "body": smstext,
+      "to": "+917030970237"
+    };
+
+
+    try{
+      const res = await axios.post(
+        "https://sih-with-sms.herokuapp.com/api/v1/sms/send_sms",
+        data
+      );
+      console.log(res);
+      alert("SMS sent Successfully! ");
+    } catch(err){
+      console.log(err);
+    }
+  }
 
   const handleSliderChange = (event, newValue) => {
     setSliderVal(newValue);
@@ -749,40 +775,7 @@ function CoorporateProfile() {
                 <CardHeader></CardHeader>
                 <CardBody>
                   <div style={{ height: 400, width: "100%" }}>
-                    {/* <MaterialTable
-                    title="Actions On Selected Rows Preview"
-                    columns={[
-                      { title: 'Name', field: 'name' },
-                      { title: 'Surname', field: 'surname' },
-                      { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
-                      {
-                        title: 'Birth Place',
-                        field: 'birthCity',
-                        lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-                      },
-                    ]}
-                    data={[
-                      { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-                      { name: 'Zerya Betül', surname: 'Baran', birthYear: 2017, birthCity: 34 },
-                    ]}        
-                    options={{
-                      selection: true
-                    }}
-                    actions={[
-                      {
-                        tooltip: 'Remove All Selected Users',
-                        icon: 'delete',
-                        // onClick: (evt, data) => alert('You want to delete ' + data.length + ' rows')
-                      }
-                    ]}
-                  /> */}
-                    {/* 
-<MaterialTable
-    // other props
-    options={{
-      search: true
-    }}
-/> */}
+
 
 <div style={{"height":"370px"}}>
                     <DataGrid
@@ -800,10 +793,18 @@ function CoorporateProfile() {
                     />
 
 </div>
-                    <Row className={styles.send___row}>
-                      <Button onClick={() => sendMail()} color="info">
-                        Send Email
-                      </Button>
+                    <Row className={classes.send___row}>
+                      <Col>
+                        <Button onClick={() => sendMail()} color="info">
+                          Send Email
+                        </Button>
+                      </Col>
+
+                      <Col>
+                        <Button onClick={() => setModal1(true)} color="info">
+                          Send SMS
+                        </Button>
+                      </Col>
                     </Row>
                   </div>
                 </CardBody>
@@ -813,6 +814,49 @@ function CoorporateProfile() {
           </Row>
         </div>
       </div>
+
+
+
+
+      <Modal isOpen={modal1} toggle={() => setModal1(false)}>
+                <div className="modal-header justify-content-center">
+                  <button
+                    className="close"
+                    type="button"
+                    onClick={() => setModal1(false)}
+                  >
+                    <i className="now-ui-icons ui-1_simple-remove"></i>
+                  </button>
+                  <h4 className="title title-up">Add SMS Body below</h4>
+                </div>
+                <ModalBody>
+
+                  <input type="textarea" 
+                    value={smstext}
+                    onChange= {(e)=>setsmstext(e.target.value)}
+                  className={classes.sms__text}/>
+           
+
+                </ModalBody>
+
+                <div className="modal-footer">
+                  <Button className="btn btn-success image-btn" 
+                  onClick={sendSMS}
+                  type="button">
+                    Submit
+                  </Button>
+                  <Button
+                    className="image-btn btn btn-danger"
+                    type="button"
+                    onClick={() => setModal1(false)}
+                  >
+                    Close
+                  </Button>
+                </div>
+              </Modal>
+
+
+
       <DarkFooter />
       {/* <DefaultFooter /> */}
     </div>
