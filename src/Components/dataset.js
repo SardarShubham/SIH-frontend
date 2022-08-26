@@ -218,17 +218,17 @@ export const diversityData = {
   {
     label: "Female",
     data: [0, 1, 1, 2, 1, 1],
-    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+    backgroundColor: '#D6E5FF',
   },
   {
     label: "Male",
     data: [1, 3, 2, 5, 2, 1],
-    backgroundColor: 'rgba(255, 206, 86, 1)',
+    backgroundColor: '#31C9C7',
   },
   {
     label: "Placed",
     data: [1, 5, 4, 7, 4, 3],
-    backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    backgroundColor: '#456CA1',
   },
   ]
 

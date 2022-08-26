@@ -759,7 +759,7 @@ function AICTE_Profile() {
                                 label: "Placed",
                                 data: instituteWise.placedCount,
                                 // backgroundColor: "#2CA8FF",
-                                backgroundColor:"#1D3557",
+                                backgroundColor:"#456CA1",
 
                               },
                               {
@@ -785,7 +785,7 @@ function AICTE_Profile() {
                                 label: "Male Placed",
                                 data: programGenderWise.maleplaced,
                                 // backgroundColor: "#2CA8FF",
-                                backgroundColor:"#1D3557",
+                                backgroundColor:"#456CA1",
 
                               },
                               {
@@ -883,19 +883,19 @@ function AICTE_Profile() {
                       name: "Unplaced",
                       data: yearWise.unplacedcount,
                       stack: 0,
-                      color:'rgba(255, 99, 132, 0.5)'
+                      color:'#D6E5FF'
                     },
                     {
                       name: "Placed",
                       data: yearWise.placedcount,
                       stack: 1,
-                      color: 'rgba(54, 162, 235, 0.5)',
+                      color: '#31C9C7',
                     },
                     {
                       name: "Total",
                       data: yearWise.total,
                       stack: 2,
-                      color: 'rgba(255, 206, 86, 0.5)'
+                      color: '#456CA1'
                     },
                   ],
                 }}
