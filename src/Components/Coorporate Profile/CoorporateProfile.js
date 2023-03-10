@@ -263,7 +263,7 @@ function CoorporateProfile() {
     };
     try {
       const p = await axios.post(
-        "https://optimizers-sih-backend.herokuapp.com/api/v1/chart/programWisePlacement",
+        "https://shy-pink-eagle-wrap.cyclic.app/api/v1/chart/programWisePlacement",
         data
       );    
     
@@ -315,7 +315,7 @@ function CoorporateProfile() {
 
     try {
       const res = await axios.post(
-        "https://optimizers-sih-backend.herokuapp.com/api/v1/student/getAllStudentsByYearAndBranch",
+        "https://shy-pink-eagle-wrap.cyclic.app/api/v1/student/getAllStudentsByYearAndBranch",
         data
       );
 
@@ -360,7 +360,7 @@ function CoorporateProfile() {
 
     try {
       const res = await axios.post(
-        "https://optimizers-sih-backend.herokuapp.com/api/v1/email/sendEmail",
+        "https://shy-pink-eagle-wrap.cyclic.app/api/v1/email/sendEmail",
         data
       );
 

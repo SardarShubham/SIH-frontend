@@ -100,7 +100,7 @@ function AICTE_Profile() {
     };
     try {
       const p = await axios.post(
-        "https://optimizers-sih-backend.herokuapp.com/api/v1/chart/programWisePlacement",
+        "https://shy-pink-eagle-wrap.cyclic.app/api/v1/chart/programWisePlacement",
         data
       );    
     
@@ -164,7 +164,7 @@ function AICTE_Profile() {
     };
     try {
       const res = await axios.post(
-        "https://optimizers-sih-backend.herokuapp.com/api/v1/chart//yearWisePlacement",
+        "https://shy-pink-eagle-wrap.cyclic.app/api/v1/chart//yearWisePlacement",
         data
       );
 
@@ -198,7 +198,7 @@ function AICTE_Profile() {
     };
     try {
       const program = await axios.post(
-        "https://optimizers-sih-backend.herokuapp.com/api/v1/chart/programWisePlacement",
+        "https://shy-pink-eagle-wrap.cyclic.app/api/v1/chart/programWisePlacement",
         data
       );
       
@@ -229,7 +229,7 @@ function AICTE_Profile() {
     };
     try {
       const institute = await axios.post(
-        "https://optimizers-sih-backend.herokuapp.com/api/v1/chart/institutionTypeWisePlacement",
+        "https://shy-pink-eagle-wrap.cyclic.app/api/v1/chart/institutionTypeWisePlacement",
         data
       );
       institute.data.sort((a,b)=>{
@@ -245,7 +245,7 @@ function AICTE_Profile() {
   const getProgramGenderWise = async () => {
     try {
       const memo = await axios.post(
-        "https://optimizers-sih-backend.herokuapp.com/api/v1/chart/programGenderWisePlacement",
+        "https://shy-pink-eagle-wrap.cyclic.app/api/v1/chart/programGenderWisePlacement",
         {
           year: 2021,
           state: "",
@@ -280,7 +280,7 @@ function AICTE_Profile() {
     };
     try {
       const res = await axios.post(
-        "https://optimizers-sih-backend.herokuapp.com/api/v1/chart/stateWisePlacement",
+        "https://shy-pink-eagle-wrap.cyclic.app/api/v1/chart/stateWisePlacement",
         data
       );
       // console.log(res.data[0]);

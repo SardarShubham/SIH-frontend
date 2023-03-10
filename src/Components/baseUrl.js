@@ -1,2 +1,3 @@
-// export const baseurl = "http://localhost:4000/api/v1";
-export const baseurl = "https://optimizers-sih-backend.herokuapp.com/api/v1";
+export const baseurl = "https://shy-pink-eagle-wrap.cyclic.app/api/v1";
+// export const baseurl = "https://shy-pink-eagle-wrap.cyclic.app/api/v1";
+// https://shy-pink-eagle-wrap.cyclic.app/api/v1

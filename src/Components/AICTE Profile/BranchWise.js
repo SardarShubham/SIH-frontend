@@ -35,7 +35,7 @@ const BranchWise = () => {
   const fetchData = async() => {
     try {
       const res = await axios.get(
-        "https://optimizers-sih-backend.herokuapp.com/api/v1/AICTE/GetReasonsFreaquencyMap"
+        "https://shy-pink-eagle-wrap.cyclic.app/api/v1/AICTE/GetReasonsFreaquencyMap"
       );
       setgraphData({
         reasons: Object.keys(res.data),
